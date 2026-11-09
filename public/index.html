@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Оформить заказ</title>
+  <style>
+    :root{--ink:#152d36;--muted:#60737b;--line:#dbe4e5;--green:#116c5b;--pale:#edf6f1;--bg:#f3f6f5;--red:#b32631}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+    button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.38}button,input,select{touch-action:manipulation}
+    :focus-visible{outline:3px solid #98cbbc;outline-offset:3px}button{transition:background .15s,transform .15s}button:active{transform:translateY(1px)}
+    .topbar{background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{max-width:1120px;margin:auto;min-height:76px;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:750;letter-spacing:-.4px;font-size:18px}.brand-icon{display:grid;place-items:center;width:34px;height:34px;background:var(--ink);border-radius:10px;color:white;font-size:22px}
+    .badge{display:inline-flex;align-items:center;gap:7px;color:var(--green);background:var(--pale);padding:6px 11px;border-radius:100px;font-size:12px;font-weight:650}.dot{height:6px;width:6px;border-radius:50%;background:currentColor}
+    main{max-width:1120px;margin:0 auto;padding:44px 28px 24px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:1.8px;color:var(--green);text-transform:uppercase;margin:0 0 10px}
+    h1{font-size:clamp(30px,4vw,42px);line-height:1.15;letter-spacing:-1.5px;margin:0 0 13px;font-weight:720}.intro{color:var(--muted);margin:0 0 32px;font-size:16px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:22px;align-items:start}.sections{display:grid;gap:20px}.card{border:1px solid var(--line);background:white;border-radius:18px;overflow:hidden}
+    .card-head{display:flex;align-items:center;gap:12px;padding:23px 24px 18px}.step{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:var(--pale);color:var(--green);font-size:12px;font-weight:750}
+    h2{font-size:18px;letter-spacing:-.4px;margin:0}.card-head p{margin:2px 0 0;color:var(--muted);font-size:12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:4px 24px 26px}.field-full{grid-column:1/-1}
+    label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}.required{color:var(--green)}input,select{min-width:0;width:100%;min-height:46px;padding:11px 12px;color:var(--ink);background:#fff;border:1px solid #ccd8dc;border-radius:9px}input::placeholder{color:#8a989f}
+    input:focus,select:focus{border-color:var(--green)}input[readonly]{background:#f4f7f7;color:var(--muted);font-variant-numeric:tabular-nums}input[type=number]{font-variant-numeric:tabular-nums}
+    .catalog-count{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}.table-wrap{padding:0 24px}table{width:100%;border-collapse:collapse;table-layout:fixed}thead th{text-align:left;font-size:11px;letter-spacing:.3px;color:var(--muted);font-weight:650;padding:12px 8px 12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    th:nth-child(2){width:102px}th:nth-child(3){width:82px}th:last-child{width:34px}td{padding:15px 8px 0 0;vertical-align:top}td:last-child{padding-right:0}td select{font-size:13px;padding-left:9px}td input{padding-left:9px;padding-right:6px;font-size:13px}
+    .remove{width:30px;height:46px;border:0;background:transparent;color:#83959c;font-size:23px;border-radius:7px}.remove:hover:not(:disabled){color:var(--red);background:#fceef0}.table-actions{padding:18px 24px 24px}.add{color:var(--green);border:1px solid #bbd6cc;background:#fff;border-radius:9px;padding:9px 14px;font-size:13px;font-weight:650}.add:hover{background:var(--pale)}
+    .aside{padding:24px;position:sticky;top:24px}.aside .eyebrow{font-size:10px;letter-spacing:1.4px;margin-bottom:20px}.summary-title{font-size:21px;margin-bottom:22px}.stat{display:flex;justify-content:space-between;gap:12px;margin:12px 0;font-size:13px;color:var(--muted)}.stat strong{color:var(--ink);font-size:15px;font-weight:650;font-variant-numeric:tabular-nums}.summary-divider{border:0;border-top:1px solid var(--line);margin:22px 0}
+    .primary{border:0;background:var(--green);color:#fff;border-radius:10px;padding:13px 16px;font-weight:650;font-size:14px;width:100%;display:flex;justify-content:center;gap:16px;align-items:center}.primary:hover{background:#0c5548}.note{font-size:12px;color:var(--muted);line-height:1.65;margin:14px 0 0}.aside-bottom{display:flex;gap:9px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.aside-bottom span:first-child{color:var(--green)}
+    .page-footer{color:#7a8a90;font-size:11px;display:flex;justify-content:space-between;gap:16px;margin:24px 2px}.error{color:var(--red);font-size:13px;margin:12px 0 0}.error:empty{display:none}
+    dialog{width:min(580px,calc(100% - 32px));max-height:85dvh;padding:28px;border:1px solid var(--line);border-radius:18px;color:var(--ink);box-shadow:0 24px 100px #0d292f33}dialog::backdrop{background:#102a3566;backdrop-filter:blur(3px)}.dialog-top{display:flex;justify-content:space-between;align-items:center;gap:16px}.close{background:#f1f5f4;border:0;border-radius:8px;font-size:22px;width:34px;height:34px;color:var(--muted)}.preview-contact{font-size:14px;color:var(--muted);white-space:pre-line;overflow-wrap:anywhere}.preview-items{margin:20px 0;padding:0;list-style:none}.preview-items li{padding:12px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font-size:14px}.preview-items small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.preview-items strong{white-space:nowrap}.dialog-note{background:var(--pale);padding:12px;border-radius:9px;margin:16px 0;font-size:13px;color:var(--green)}.secondary{background:white;border:1px solid var(--line);border-radius:9px;padding:11px 15px;color:var(--ink);font-size:13px}.dialog-actions{display:flex;gap:10px}.dialog-actions .primary{width:auto;flex:1}
+    @media(max-width:960px){.layout{grid-template-columns:minmax(0,1fr)}.aside{position:static}.aside .eyebrow{margin-bottom:8px}.summary-title{margin-bottom:12px}.aside-bottom{margin-top:16px}.summary-divider{margin:16px 0}}
+    @media(max-width:600px){.topbar-inner{padding:14px 18px;min-height:65px}.brand{font-size:16px}.badge{font-size:11px}main{padding:30px 16px 18px}.intro{font-size:14px;margin-bottom:24px}.fields{grid-template-columns:1fr;padding:0 18px 22px;gap:15px}.card-head{padding:19px 18px 16px}.catalog-count{font-size:11px}.card-head h2{font-size:17px}.table-wrap{padding:0 18px}.table-actions{padding:18px}.page-footer{flex-direction:column;gap:5px}thead{display:none}table,tbody,tr,td{display:block;width:100%}tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 30px;gap:12px 10px;padding:17px 0;border-top:1px solid var(--line)}td{padding:0}td:first-child{grid-column:1/-1}td::before{content:attr(data-label);display:block;font-size:11px;color:var(--muted);font-weight:650;margin:0 0 7px}td:last-child::before{content:' ';height:16px}td select{font-size:14px}dialog{padding:22px}.dialog-actions{flex-direction:column}.aside{padding:22px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    @media(min-width:601px){th:nth-child(2){width:85px}th:nth-child(3),th:nth-child(4){width:118px}}
+    @media(max-width:600px){tr{grid-template-columns:repeat(3,minmax(0,1fr)) 30px}td:last-child{grid-column:4}td input{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><div class="brand"><span class="brand-icon" aria-hidden="true">↗</span> Каталог / Заказ</div><span class="badge"><span class="dot" aria-hidden="true"></span>Без регистрации</span></div></header>
+  <main>
+    <p class="eyebrow">Форма заказа</p>
+    <h1>Соберите ваш заказ</h1>
+    <p class="intro">Укажите контакты, выберите товары и нужное количество.</p>
+    <noscript><p class="dialog-note">Для выбора товаров включите JavaScript в браузере.</p></noscript>
+    <form id="order-form">
+      <div class="layout">
+        <div class="sections">
+          <section class="card" aria-labelledby="contacts-heading">
+            <div class="card-head"><span class="step" aria-hidden="true">01</span><div><h2 id="contacts-heading">Контактные данные</h2><p>Чтобы мы могли связаться с вами</p></div></div>
+            <div class="fields">
+              <div class="field-full"><label for="full-name">ФИО <span class="required">*</span></label><input id="full-name" name="full_name" autocomplete="name" placeholder="Иванов Иван Иванович" maxlength="150" required></div>
+              <div><label for="phone">Телефон <span class="required">*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 (999) 123-45-67" maxlength="30" required></div>
+              <div><label for="email">E-mail <span class="required">*</span></label><input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.ru" maxlength="254" required></div>
+            </div>
+          </section>
+          <section class="card" aria-labelledby="products-heading">
+            <div class="card-head"><span class="step" aria-hidden="true">02</span><h2 id="products-heading">Товары</h2><span id="catalog-count" class="catalog-count"></span></div>
+            <div class="table-wrap"><table aria-label="Состав заказа"><thead><tr><th scope="col">Название товара</th><th scope="col">Кол-во, шт.</th><th scope="col">Цена</th><th scope="col">Сумма</th><th scope="col"><span aria-label="Действия"></span></th></tr></thead><tbody id="order-rows"></tbody></table></div>
+            <div class="table-actions"><button class="add" type="button" id="add-row">＋ Добавить товар</button></div>
+          </section>
+        </div>
+        <aside class="card aside" aria-labelledby="summary-heading">
+          <p class="eyebrow">Ваш заказ</p><h2 class="summary-title" id="summary-heading">Всё готово?</h2>
+          <div aria-live="polite" aria-atomic="true"><div class="stat"><span>Позиций</span><strong id="total-lines">0</strong></div><div class="stat"><span>Всего, шт.</span><strong id="total-quantity">0</strong></div></div>
+          <div class="stat"><span>Сумма заказа</span><strong id="total-amount">0 ₽</strong></div><hr class="summary-divider">
+          <button type="submit" class="primary">Проверить заказ <span aria-hidden="true">→</span></button>
+          <p class="note">Проверьте состав и контактные данные перед отправкой заказа.</p>
+          <p id="form-error" class="error" role="alert"></p>
+          <div class="aside-bottom"><span aria-hidden="true">ⓘ</span><span>После проверки отправьте тестовый заказ в Битрикс24.</span></div>
+        </aside>
+      </div>
+    </form>
+    <footer class="page-footer"><span>* Обязательные поля</span><span>Количество — целое число от 1 · Цена подставляется автоматически</span></footer>
+  </main>
+  <dialog id="preview" aria-labelledby="preview-title">
+    <div class="dialog-top"><h2 id="preview-title">Проверьте заказ</h2><button type="button" class="close" id="close-preview" aria-label="Закрыть">×</button></div>
+    <p id="preview-contact" class="preview-contact"></p><ul id="preview-items" class="preview-items"></ul>
+    <p id="preview-total" style="font-weight:650"></p>
+    <p class="dialog-note">Проверьте данные и отправьте тестовый заказ в Битрикс24.</p>
+    <div class="dialog-actions"><button type="button" class="secondary" id="edit-order">Вернуться к форме</button><button type="button" class="secondary" id="download-order">Скачать заказ</button><button type="button" class="primary" id="send-order">Отправить в Битрикс24</button></div>
+    <p class="note">Тестовый заказ создаст контакт и сделку с ценами из каталога Битрикс24.</p>
+  </dialog>
+  <script id="catalog-data" type="application/json">[{"id":"1001","name":"Asics Унисекс Куртки"},{"id":"1002","name":"Reebok Унисекс Футболки"},{"id":"1003","name":"Under Armour Перчатки"},{"id":"1004","name":"Reebok Повязки"},{"id":"1005","name":"Nike Унисекс Шорты"},{"id":"1006","name":"Reebok Коврики для Бокс"},{"id":"1007","name":"Adidas Гантели для Фитнес"},{"id":"1008","name":"Nike Эспандеры для Командные игры"},{"id":"1009","name":"Reebok Эспандеры для Командные игры"},{"id":"10010","name":"Under Armour Перчатки"},{"id":"10011","name":"Adidas Гантели для Туризм"},{"id":"10012","name":"Nike Рюкзаки"},{"id":"10013","name":"Adidas Гантели для Командные игры"},{"id":"10014","name":"Nike Женский Куртки"},{"id":"10015","name":"Puma Повязки"},{"id":"10016","name":"Adidas Гантели для Бег"},{"id":"10017","name":"Adidas Коврики для Командные игры"},{"id":"10018","name":"Reebok Бутылки"},{"id":"10019","name":"Asics Перчатки"},{"id":"10020","name":"Puma Мужской Кроссовки"}]</script>
+  <script>
+    'use strict';
+    (async () => {
+    const money = value => new Intl.NumberFormat('ru-RU', {style:'currency',currency:'RUB'}).format(value);
+    // Standalone form. Connect a protected server endpoint for actual CRM delivery.
+    // Never embed a Bitrix webhook secret in a public HTML file.
+    const submitButton = document.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    document.getElementById('form-error').textContent = 'Загружаем цены из Битрикс24…';
+    const response = await fetch('/api/catalog');
+    const data = await response.json();
+    if (!response.ok || !data.ok) throw new Error(data.error || 'Не удалось загрузить цены.');
+    const catalog = data.products;
+    submitButton.disabled = false;
+    const products = new Map(catalog.map(product => [product.id, product]));
+    const nameCounts = new Map();
+    catalog.forEach(product => nameCounts.set(product.name, (nameCounts.get(product.name) || 0) + 1));
+    const sortedCatalog = [...catalog].sort((a,b) => a.name.localeCompare(b.name, 'ru') || a.id.localeCompare(b.id));
+    const rows = document.getElementById('order-rows');
+    const form = document.getElementById('order-form');
+    const fullName = document.getElementById('full-name');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const preview = document.getElementById('preview');
+    const draftKey = 'simple-order-cart-v1';
+    let sequence = 0;
+    let preparedOrder = null;
+    const quantityValid = value => /^\d+$/.test(value) && Number.isSafeInteger(Number(value)) && Number(value) >= 1;
+    document.getElementById('catalog-count').textContent = `${catalog.length} товаров в каталоге`;
+    function updateSummary() {
+      let total = 0; let amount = 0;
+      const selected = new Set();
+      for (const row of rows.children) {
+        const id = row.querySelector('select').value;
+        const quantity = row.querySelector('.quantity').value;
+        if (products.has(id)) {
+          selected.add(id);
+          if (quantityValid(quantity)) total += Number(quantity);
+        }
+        const product = products.get(id);
+        const lineAmount = product && quantityValid(quantity) ? product.price * Number(quantity) : 0;
+        amount += lineAmount;
+        row.querySelector('.product-id').value = product ? money(product.price) : '';
+        row.querySelector('.line-total').value = product ? money(lineAmount) : '';
+        row.querySelector('.remove').disabled = rows.children.length === 1;
+      }
+      document.getElementById('total-amount').textContent = money(amount);
+      document.getElementById('total-lines').textContent = selected.size;
+      document.getElementById('total-quantity').textContent = Number.isSafeInteger(total) ? total.toLocaleString('ru-RU') : '—';
+      document.getElementById('form-error').textContent = '';
+    }
+    function saveCart() {
+      // Only the cart is remembered; contact details are not stored in the browser.
+      try { localStorage.setItem(draftKey, JSON.stringify(Array.from(rows.children, row => ({id:row.querySelector('select').value, quantity:row.querySelector('.quantity').value})))); } catch {}
+    }
+    function validateQuantity(input) {
+      input.setCustomValidity(quantityValid(input.value) ? '' : 'Укажите целое количество от 1 без дробей и букв.');
+    }
+    function addRow(saved = {}, focus = false) {
+      const rowNumber = ++sequence;
+      const row = document.createElement('tr');
+      row.innerHTML = '<td data-label="Название товара"><select required></select></td><td data-label="Кол-во, шт."><input class="quantity" type="number" min="1" step="1" inputmode="numeric" required value="1"></td><td data-label="Цена"><input class="product-id" readonly tabindex="-1" placeholder="—"></td><td data-label="Сумма"><input class="line-total" readonly tabindex="-1" placeholder="—"></td><td><button type="button" class="remove" title="Удалить товар">×</button></td>';
+      const select = row.querySelector('select');
+      const quantity = row.querySelector('.quantity');
+      const idInput = row.querySelector('.product-id');
+      select.setAttribute('aria-label', `Название товара, строка ${rowNumber}`);
+      quantity.setAttribute('aria-label', `Количество штук, строка ${rowNumber}`);
+      idInput.setAttribute('aria-label', `Цена товара, строка ${rowNumber}`);
+      row.querySelector('.remove').setAttribute('aria-label', `Удалить товар, строка ${rowNumber}`);
+      select.add(new Option('Выберите товар', ''));
+      for (const product of sortedCatalog) select.add(new Option(nameCounts.get(product.name) > 1 ? `${product.name} · ID ${product.id}` : product.name, product.id));
+      if (products.has(saved.id)) { select.value = saved.id; idInput.value = saved.id; }
+      if (saved.quantity !== undefined && quantityValid(String(saved.quantity))) quantity.value = saved.quantity;
+      select.addEventListener('change', () => { idInput.value = products.has(select.value) ? select.value : ''; updateSummary(); saveCart(); });
+      quantity.addEventListener('input', () => { validateQuantity(quantity); updateSummary(); saveCart(); });
+      row.querySelector('.remove').addEventListener('click', () => {
+        if (rows.children.length <= 1) return;
+        const focusRow = row.nextElementSibling || row.previousElementSibling;
+        row.remove(); updateSummary(); saveCart(); focusRow.querySelector('select').focus();
+      });
+      rows.append(row); updateSummary(); if (focus) select.focus();
+    }
+    let draft = [];
+    try { const value = JSON.parse(localStorage.getItem(draftKey)); if (Array.isArray(value)) draft = value.filter(item => item && typeof item === 'object' && (products.has(item.id) || item.id === '')); } catch {}
+    if (draft.length) draft.forEach(item => addRow(item)); else addRow();
+    document.getElementById('add-row').addEventListener('click', () => { addRow({}, true); saveCart(); });
+    function validateContacts() {
+      fullName.setCustomValidity(fullName.value.trim() ? '' : 'Укажите ФИО.');
+      const digits = phone.value.replace(/\D/g, '');
+      phone.setCustomValidity(/^[+\d\s()\-]+$/.test(phone.value) && digits.length >= 7 && digits.length <= 15 ? '' : 'Укажите телефон: от 7 до 15 цифр. Допустимы +, пробелы, скобки и дефисы.');
+    }
+    fullName.addEventListener('input', validateContacts);
+    phone.addEventListener('input', validateContacts);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      fullName.value = fullName.value.trim(); email.value = email.value.trim(); phone.value = phone.value.trim();
+      validateContacts(); rows.querySelectorAll('.quantity').forEach(validateQuantity);
+      if (!form.reportValidity()) return;
+      const items = new Map();
+      for (const row of rows.children) {
+        const product = products.get(row.querySelector('select').value);
+        const quantity = Number(row.querySelector('.quantity').value);
+        if (!product || !Number.isSafeInteger(quantity) || quantity < 1) return;
+        if (items.has(product.id)) items.get(product.id).quantity += quantity;
+        else items.set(product.id, {id:product.id, name:product.name, quantity, price:product.price});
+      }
+      const total = Array.from(items.values()).reduce((sum,item) => sum + item.quantity, 0);
+      if (!Number.isSafeInteger(total)) { document.getElementById('form-error').textContent = 'Слишком большое суммарное количество. Уменьшите количество товаров.'; return; }
+      preparedOrder = {request_id:crypto.randomUUID(), created_at:new Date().toISOString(), contact:{full_name:fullName.value,phone:phone.value,email:email.value}, items:Array.from(items.values()), total_quantity:total};
+      document.getElementById('preview-contact').textContent = `${fullName.value}\n${phone.value}\n${email.value}`;
+      const list = document.getElementById('preview-items'); list.replaceChildren();
+      for (const item of preparedOrder.items) {
+        const li = document.createElement('li'); const name = document.createElement('div'); const id = document.createElement('small'); const count = document.createElement('strong');
+        name.textContent = item.name; id.textContent = `ID ${item.id} · ${money(item.price)} / шт.`; count.textContent = `${item.quantity.toLocaleString('ru-RU')} шт. · ${money(item.price * item.quantity)}`;
+        name.append(id); li.append(name,count); list.append(li);
+      }
+      document.getElementById('preview-total').textContent = `Итого: ${preparedOrder.items.length} поз. · ${total.toLocaleString('ru-RU')} шт. · ${money(preparedOrder.items.reduce((sum,item) => sum + item.price * item.quantity, 0))}`;
+      preview.showModal();
+    });
+    document.getElementById('close-preview').addEventListener('click', () => preview.close());
+    document.getElementById('edit-order').addEventListener('click', () => preview.close());
+    document.getElementById('download-order').addEventListener('click', () => {
+      if (!preparedOrder) return;
+      const blob = new Blob([JSON.stringify(preparedOrder,null,2)], {type:'application/json;charset=utf-8'});
+      const url = URL.createObjectURL(blob); const link = document.createElement('a');
+      link.href = url; link.download = `order-${new Date().toISOString().replace(/[:.]/g,'-')}.json`;
+      document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+    const sendButton = document.getElementById('send-order');
+    const statusNote = document.querySelector('#preview .dialog-note');
+    const originalShow = preview.showModal.bind(preview);
+    preview.showModal = () => { sendButton.disabled = false; statusNote.textContent = 'Проверьте данные и отправьте тестовый заказ в Битрикс24.'; originalShow(); };
+    sendButton.addEventListener('click', async () => {
+      if (!preparedOrder || sendButton.disabled) return;
+      sendButton.disabled = true;
+      document.getElementById('edit-order').disabled = true;
+      document.getElementById('close-preview').disabled = true;
+      const blockEscape = event => event.preventDefault();
+      preview.addEventListener('cancel', blockEscape);
+      statusNote.textContent = 'Отправляем заказ… Дождитесь результата.';
+      try {
+        const response = await fetch('/api/orders', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(preparedOrder)});
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || 'Ошибка отправки.');
+        statusNote.textContent = `Заказ отправлен. Сделка №${result.deal_id}, контакт №${result.contact_id}.`;
+        preparedOrder = null;
+        try { localStorage.removeItem(draftKey); } catch {}
+      } catch (error) {
+        statusNote.textContent = error.message + ' При обрыве связи можно повторить тот же запрос: сервер проверит его номер.';
+        sendButton.disabled = false;
+      } finally {
+        preview.removeEventListener('cancel', blockEscape);
+        document.getElementById('edit-order').disabled = false;
+        document.getElementById('close-preview').disabled = false;
+      }
+    });
+    })().catch(error => { document.getElementById('form-error').textContent = error.message + ' Обновите страницу, чтобы повторить загрузку.'; document.querySelector('button[type="submit"]').disabled = true; });
+  </script>
+</body>
+</html>
